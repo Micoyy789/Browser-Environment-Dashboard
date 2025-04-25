@@ -1,3 +1,23 @@
+<!-- 
+  README
+  Browser Environment Dashboard
+  Student: Jhon Mico V. Frondozo
+
+  This webpage shows my student profile and also gives information about the browser and the current web page.
+  
+  What it does:
+  - Shows my name, course, school, and other profile details.
+  - Displays information like the browser name, screen size, and page URL.
+  - Lets the user change the page title and use buttons to go back, forward, reload, or go to a new page.
+  - Changes background color based on screen size:
+    * Blue for mobile (less than 600px)
+    * Green for tablet (600px to 991px)
+    * Orange for desktop (992px and above)
+  - Uses a clean and simple design that works on any screen size.
+  
+  This is part of my school activity for our Event Driven Programming class.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,52 +127,65 @@
     <section>
       <h2>Navigation Controls</h2>
       <button onclick="location.reload()">Reload</button>
-      <button onclick="location.href='https://www.google.com/'">Go to Google.com</button>
+      <button onclick="location.href='https://www.example.com'">Go to Example.com</button>
       <button onclick="history.back()">Back</button>
       <button onclick="history.forward()">Forward</button>
     </section>
   </div>
 
   <script>
-    const browserInfo = document.getElementById('browserInfo');
-    browserInfo.innerHTML = `
-      <p><strong>Browser:</strong> ${navigator.appName} ${navigator.appVersion}</p>
-      <p><strong>Platform:</strong> ${navigator.platform}</p>
-      <p><strong>Java Enabled:</strong> ${navigator.javaEnabled()}</p>
-      <p><strong>Screen:</strong> ${screen.width}x${screen.height}</p>
-      <p><strong>Available Screen:</strong> ${screen.availWidth}x${screen.availHeight}</p>
-      <p><strong>Color Depth:</strong> ${screen.colorDepth}</p>
+  // Get the element where browser information will be displayed
+  const browserInfo = document.getElementById('browserInfo');
+
+  // Insert browser details into the element
+  browserInfo.innerHTML = `
+    <p><strong>Browser:</strong> ${navigator.appName} ${navigator.appVersion}</p>
+    <p><strong>Platform:</strong> ${navigator.platform}</p>
+    <p><strong>Java Enabled:</strong> ${navigator.javaEnabled()}</p>
+    <p><strong>Screen:</strong> ${screen.width}x${screen.height}</p>
+    <p><strong>Available Screen:</strong> ${screen.availWidth}x${screen.availHeight}</p>
+    <p><strong>Color Depth:</strong> ${screen.colorDepth}</p>
+  `;
+
+  // Get the element where page information will be displayed
+  const pageInfo = document.getElementById('pageInfo');
+
+  // Function to update the page info (URL, Host, Title)
+  function updatePageInfo() {
+    pageInfo.innerHTML = `
+      <p><strong>URL:</strong> ${location.href}</p>
+      <p><strong>Host:</strong> ${location.hostname}</p>
+      <p><strong>Title:</strong> ${document.title}</p>
     `;
+  }
 
-    const pageInfo = document.getElementById('pageInfo');
-    function updatePageInfo() {
-      pageInfo.innerHTML = `
-        <p><strong>URL:</strong> ${location.href}</p>
-        <p><strong>Host:</strong> ${location.hostname}</p>
-        <p><strong>Title:</strong> ${document.title}</p>
-      `;
+  // Function to allow the user to change the page title
+  function changeTitle() {
+    const newTitle = prompt("Enter new page title:"); // Ask the user for a new title
+    if (newTitle) {
+      document.title = newTitle; // Set the new title
+      updatePageInfo(); // Update the displayed info to reflect the new title
     }
+  }
 
-    function changeTitle() {
-      const newTitle = prompt("Enter new page title:");
-      if (newTitle) {
-        document.title = newTitle;
-        updatePageInfo();
-      }
+  // Call this initially to display the page info on load
+  updatePageInfo();
+
+  // Function to change the background color depending on the window width
+  function setBackgroundColor() {
+    const width = window.innerWidth;
+
+    if (width < 600) {
+      document.body.style.backgroundColor = "#0d47a1"; // Dark blue for small screens
+    } else if (width < 992) {
+      document.body.style.backgroundColor = "#00796b"; // Teal for medium screens
+    } else {
+      document.body.style.backgroundColor = "#ff9800"; // Orange for large screens
     }
+  }
+</script>
 
-    updatePageInfo();
-
-    function setBackgroundColor() {
-      const width = window.innerWidth;
-      if (width < 600) {
-        document.body.style.backgroundColor = "#0d47a1";
-      } else if (width < 992) {
-        document.body.style.backgroundColor = "#00796b";
-      } else {
-        document.body.style.backgroundColor = "#ff9800";
-      }
-    }
-  </script>
 </body>
 </html>
+
+Include comments in your JavaScript explaining each section.
